@@ -2,7 +2,34 @@
 title: 'Install'
 ---
 
-There are lots of ways to use Emotion, if you're using React, the easiest way to get started is to use the [`@emotion/core` package](/packages/@emotion/core). If you're not using React, you should use [the `emotion` package](#vanilla).
+import { PkgQuestion, CRAQuestion, ConditionalFromQuestion } from './choices'
+
+<PkgQuestion />
+
+<ConditionalFromQuestion question="pkg" answer="default">
+
+There are lots of ways to use Emotion, if you're using React, the easiest way
+to get started is to use the [`@emotion/core`
+package](/packages/@emotion/core). If you're not using React, you should use
+[the `emotion` package](#vanilla).
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="pkg" answer="react" default="hide">
+
+The easiest way to get started with Emotion for React is with `@emotion/core`
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="pkg" answer="vanilla" default="hide">
+
+To get started, you can install [the `emotion` package](#vanilla).
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="pkg" answer="react">
+
+# Emotion for React
 
 ```bash
 yarn add @emotion/core
@@ -73,11 +100,35 @@ const Button = styled.button`
 render(<Button>This is a hotpink button.</Button>)
 ```
 
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="pkg" answer="vanilla">
+
+# Vanilla
+
+If you're not using React, you can use vanilla Emotion from the `emotion` package. Most of the documentation here focuses on the React-specific version of Emotion, but most of the concepts in the React-specific version also apply to vanilla Emotion.
+
+```bash
+yarn add emotion
+```
+
+```jsx
+import { css } from 'emotion'
+
+const app = document.getElementById('root')
+const myClassName = css`
+  color: hotpink;
+`
+app.classList.add(myClassName)
+```
+
+</ConditionalFromQuestion>
+
+<CRAQuestion />
+
+<ConditionalFromQuestion question="cra" answer="no">
+
 ## With [`babel-plugin-emotion`](/packages/babel-plugin-emotion)
-
-> Note:
-
-> If you're using Create React App, you can use the [Babel macro](./babel-macros.md)
 
 Emotion has an optional [Babel](https://babeljs.io/) plugin that optimizes styles by compressing and hoisting them and creates a better developer experience with source maps and labels.
 
@@ -114,35 +165,4 @@ If you are using Babel's env option emotion must also be first for each environm
 }
 ```
 
-## Recommended config
-
-```json
-{
-  "env": {
-    "production": {
-      "plugins": ["emotion"]
-    },
-    "development": {
-      "plugins": [["emotion", { "sourceMap": true }]]
-    }
-  }
-}
-```
-
-# Vanilla
-
-If you're not using React, you can use vanilla Emotion from the `emotion` package. Most of the documentation here focuses on the React-specific version of Emotion, but most of the concepts in the React-specific version also apply to vanilla Emotion.
-
-```bash
-yarn add emotion
-```
-
-```jsx
-import { css } from 'emotion'
-
-const app = document.getElementById('root')
-const myClassName = css`
-  color: hotpink;
-`
-app.classList.add(myClassName)
-```
+</ConditionalFromQuestion>

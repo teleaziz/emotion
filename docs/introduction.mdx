@@ -2,11 +2,17 @@
 title: 'Introduction'
 ---
 
+import { PkgQuestion, ConditionalFromQuestion } from './choices'
+
 Emotion is a library designed for writing css styles with JavaScript. It provides powerful and predictable style composition in addition to a great developer experience with features such as source maps, labels, and testing utilities. Both string and object styles are supported.
 
 ---
 
 There are two primary methods of using Emotion. The first is framework agnostic and the second is for use with React.
+
+<PkgQuestion />
+
+<ConditionalFromQuestion question="pkg" answer="vanilla">
 
 ### Framework Agnostic
 
@@ -50,6 +56,10 @@ render(
   </div>
 )
 ```
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="pkg" answer="react">
 
 ### React
 
@@ -130,6 +140,8 @@ const Button = styled.button`
 
 render(<Button>This my button component.</Button>)
 ```
+
+</ConditionalFromQuestion>
 
 ### Libraries that Inspired Us
 

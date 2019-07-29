@@ -50,34 +50,4 @@ export const fonts = {
 }
 
 export { default as openColors } from 'open-color'
-export {
-  space,
-  width,
-  fontSize,
-  color,
-  style,
-  responsiveStyle,
-  pseudoStyle,
-  textAlign,
-  fontWeight,
-  alignItems,
-  justifyContent,
-  flexWrap,
-  flexDirection,
-  flex,
-  alignSelf,
-  borderRadius,
-  borderColor,
-  borderWidth,
-  boxShadow,
-  hover,
-  focus,
-  active,
-  disabled,
-  theme,
-  propTypes,
-  cleanElement,
-  removeProps,
-  util,
-  constants
-} from 'styled-system'
+export { constants } from 'styled-system'

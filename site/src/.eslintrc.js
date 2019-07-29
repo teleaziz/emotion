@@ -1,4 +1,5 @@
 module.exports = {
+  parser: 'babel-eslint',
   plugins: ['emotion'],
   rules: {
     'no-undef': 0,

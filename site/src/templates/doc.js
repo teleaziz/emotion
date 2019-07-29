@@ -12,6 +12,7 @@ import DocWrapper from '../components/DocWrapper'
 import Title from '../components/Title'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from '@mdx-js/react'
+import { QuestionProvider } from '../utils/question-state'
 
 type Props = {
   data: {
@@ -133,16 +134,18 @@ export default class DocRoute extends React.Component<Props, DocRouteState> {
             </div>
 
             <div>
-              <MDXProvider
-                components={{
-                  'live-code': createLiveCode(
-                    avatar.childImageSharp.resolutions.src
-                  ),
-                  ...markdownComponents
-                }}
-              >
-                <MDXRenderer children={doc.body} />
-              </MDXProvider>
+              <QuestionProvider>
+                <MDXProvider
+                  components={{
+                    'live-code': createLiveCode(
+                      avatar.childImageSharp.resolutions.src
+                    ),
+                    ...markdownComponents
+                  }}
+                >
+                  <MDXRenderer children={doc.body} />
+                </MDXProvider>
+              </QuestionProvider>
             </div>
           </div>
         </DocWrapper>
