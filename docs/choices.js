@@ -97,6 +97,19 @@ export let CRAQuestion = () => {
   )
 }
 
+export let StyleSyntaxQuestion = () => {
+  return (
+    <Question
+      name="syntax"
+      question="Are you using string styles or object styles?"
+      answers={{
+        string: 'String Styles',
+        object: 'Object Styles'
+      }}
+    />
+  )
+}
+
 export let ConditionalFromQuestion = ({
   question,
   answer,

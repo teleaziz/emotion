@@ -2,7 +2,17 @@
 title: 'The css Prop'
 ---
 
+import {
+  CRAQuestion,
+  ConditionalFromQuestion,
+  StyleSyntaxQuestion
+} from './choices'
+
 The primary way to style elements with emotion is the `css` prop. It provides a concise and flexible API to style your components.
+
+<CRAQuestion />
+
+<ConditionalFromQuestion question="cra" answer="default">
 
 ## Get Started
 
@@ -13,11 +23,11 @@ There are 2 ways to get started with the `css` prop.
 
 Both methods result in the same compiled code.
 After adding the preset or setting the pragma as a comment, compiled jsx code will use emotion's `jsx` function instead of `React.createElement`.
-  
-| | Input | Output |
+
+|        | Input                      | Output                                              |
 | ------ | -------------------------- | --------------------------------------------------- |
 | Before | `<img src="avatar.png" />` | `React.createElement('img', { src: 'avatar.png' })` |
-| After | `<img src="avatar.png" />` | `jsx('img', { src: 'avatar.png' })` |
+| After  | `<img src="avatar.png" />` | `jsx('img', { src: 'avatar.png' })`                 |
 
 #### Babel Preset
 
@@ -54,25 +64,117 @@ Similar to a comment containing linter configuration, this configures the [jsx b
 import { jsx } from '@emotion/core'
 ```
 
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="cra" answer="yes">
+
+## Get Started
+
+With Create React App, you can use the css prop with the JSX pragma. Set the jsx pragma at the top of your source file that uses the `css` prop and import the `jsx` function from `@emotion/core`.
+
+```js
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
+```
+
+Similar to a comment containing linter configuration, this configures the [jsx babel plugin](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) to use the `jsx` function instead of `React.createElement`.
+
+> [JSX Pragma Babel Documentation](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx#pragma)
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="cra" answer="no">
+
+## Get Started
+
+There are 2 ways to get started with the `css` prop.
+
+- [Babel Preset](#babel-preset)
+- [JSX Pragma](#jsx-pragma)
+
+Both methods result in the same compiled code.
+After adding the preset or setting the pragma as a comment, compiled jsx code will use emotion's `jsx` function instead of `React.createElement`.
+
+|        | Input                      | Output                                              |
+| ------ | -------------------------- | --------------------------------------------------- |
+| Before | `<img src="avatar.png" />` | `React.createElement('img', { src: 'avatar.png' })` |
+| After  | `<img src="avatar.png" />` | `jsx('img', { src: 'avatar.png' })`                 |
+
+#### Babel Preset
+
+This method will **not** work with [Create React App](https://github.com/facebook/create-react-app) or other projects that do not allow custom babel configurations.
+Use the [JSX Pragma](#jsx-pragma) method instead.
+
+**.babelrc**
+
+```json
+{
+  "presets": ["@emotion/babel-preset-css-prop"]
+}
+```
+
+> [Full `@emotion/babel-preset-css-prop` documentation](https://emotion.sh/docs/@emotion/babel-preset-css-prop)
+
+#### JSX Pragma
+
+Set the jsx pragma at the top of your source file that uses the `css` prop.
+This option works best for testing out the `css` prop feature or in projects where the babel configuration is not configurable (create-react-app, codesandbox, etc.).
+
+```js
+/** @jsx jsx */
+```
+
+Similar to a comment containing linter configuration, this configures the [jsx babel plugin](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) to use the `jsx` function instead of `React.createElement`.
+
+> [JSX Pragma Babel Documentation](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx#pragma)
+
+#### Import the `jsx` function from `@emotion/core`
+
+```js
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
+```
+
+</ConditionalFromQuestion>
+
 #### Use the `css` prop
 
 Any component or element that accepts a `className` prop can also use the `css` prop. The styles supplied to the `css` prop are evaluated and the computed class name is applied to the `className` prop.
 
+Emotion supports string and object styles.
+
+<StyleSyntaxQuestion />
+
+<ConditionalFromQuestion question="syntax" answer="default">
+
 ## Object Styles
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="object" default="hide">
+
+## Writing Styles
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="object">
 
 The `css` prop accepts object styles directly and does not require an additional import.
 
 ```jsx
 // @live
+// this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
+
+const color = 'lightgreen'
 
 render(
   <div
     css={{
       backgroundColor: 'hotpink',
       '&:hover': {
-        color: 'lightgreen'
+        color
       }
     }}
   >
@@ -81,11 +183,23 @@ render(
 )
 ```
 
-> [Object Style Documentation](/docs/object-styles.md).
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="default">
 
 ## String Styles
 
-To pass string styles, you must use `css` which is exported by `@emotion/core`, it can be used as a [tagged template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) like below.
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="string">
+
+## Writing Styles
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="string" default="hide">
+
+To pass string styles, you must use `css` which is exported by `@emotion/core`, it can be used as a [tagged template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) like below. You can learn more about writing at styling at the [Writing Styles page](/docs/writing-styles.md).
 
 ```jsx
 // @live
@@ -112,6 +226,8 @@ render(
 > Note:
 >
 > **`css` from `@emotion/core` does not return the computed class name string.** The function returns an object containing the computed name and flattened styles. The returned object is understood by emotion at a low level and can be composed with other emotion based styles inside of the `css` prop, other `css` calls, or the `styled` API.
+
+</ConditionalFromQuestion>
 
 ## Style Precedence
 
