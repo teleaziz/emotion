@@ -2,11 +2,17 @@
 title: 'Styled Components'
 ---
 
+import { ConditionalFromQuestion, StyleSyntaxQuestion } from './choices'
+
 `styled` is a way to create React components that have styles attached to them. It's available from [@emotion/styled](/packages/@emotion/styled). `styled` was heavily inspired by [styled-components](https://www.styled-components.com/) and [glamorous](https://glamorous.rocks/)
+
+<StyleSyntaxQuestion />
 
 ### Styling elements and components
 
 `styled` is very similar to `css` except you call it with an html tag or React component and then call that with a template literal for string styles or a regular function call for object styles.
+
+<ConditionalFromQuestion question="syntax" answer="string">
 
 ```jsx
 // @live
@@ -19,42 +25,77 @@ const Button = styled.button`
 render(<Button>This my button component.</Button>)
 ```
 
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="object">
+
+```jsx
+// @live
+import styled from '@emotion/styled'
+
+const Button = styled.button({
+  color: 'turquoise'
+})
+
+render(<Button>This my button component.</Button>)
+```
+
+</ConditionalFromQuestion>
+
 ### Changing based on props
 
 Any interpolations or arguments that are functions in `styled` are called with `props`, this allows you to change the styles of a component based on the props.
+
+<ConditionalFromQuestion question="syntax" answer="string">
 
 ```jsx
 // @live
 import styled from '@emotion/styled'
 
 const Button = styled.button`
-  color: ${props =>
-    props.primary ? 'hotpink' : 'turquoise'};
+  color: ${props => (props.appearance === 'primary' ? 'hotpink' : 'turquoise')};
 `
 
-const Container = styled.div(props => ({
-  display: 'flex',
-  flexDirection: props.column && 'column'
+render(
+  <div>
+    <Button>This is a regular button.</Button>
+    <Button appearance="primary">This is a primary button.</Button>
+  </div>
+)
+```
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="object">
+
+```jsx
+// @live
+import styled from '@emotion/styled'
+
+const Button = styled.button(props => ({
+  color: props.appearance === 'primary' ? 'hotpink' : 'turquoise'
 }))
 
 render(
-  <Container column>
+  <div>
     <Button>This is a regular button.</Button>
-    <Button primary>This is a primary button.</Button>
-  </Container>
+    <Button appearance="primary">This is a primary button.</Button>
+  </div>
 )
 ```
+
+</ConditionalFromQuestion>
 
 ### Styling any component
 
 `styled` can style any component as long as it accepts a `className` prop.
 
+<ConditionalFromQuestion question="syntax" answer="string">
+
 ```jsx
 // @live
 import styled from '@emotion/styled'
-const Basic = ({ className }) => (
-  <div className={className}>Some text</div>
-)
+const Basic = ({ className }) => <div className={className}>Some text</div>
 
 const Fancy = styled(Basic)`
   color: hotpink;
@@ -63,9 +104,29 @@ const Fancy = styled(Basic)`
 render(<Fancy />)
 ```
 
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="object">
+
+```jsx
+// @live
+import styled from '@emotion/styled'
+const Basic = ({ className }) => <div className={className}>Some text</div>
+
+const Fancy = styled(Basic)({
+  color: 'hotpink'
+})
+
+render(<Fancy />)
+```
+
+</ConditionalFromQuestion>
+
 ### Change the rendered tag using `withComponent`
 
 Sometimes you want to create some styles with one component but then use those styles again with another component, the `withComponent` method can be used for this. This was inspired by [styled-components' `withComponent`](https://www.styled-components.com/docs/api#withcomponent).
+
+<ConditionalFromQuestion question="syntax" answer="string">
 
 ```jsx
 // @live
@@ -84,9 +145,34 @@ render(
 )
 ```
 
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="object">
+
+```jsx
+// @live
+import styled from '@emotion/styled'
+
+const Section = styled.section({
+  background: '#333'
+})
+// this component has the same styles as Section but it renders an aside
+const Aside = Section.withComponent('aside')
+render(
+  <div>
+    <Section>This is a section</Section>
+    <Aside>This is an an aside</Aside>
+  </div>
+)
+```
+
+</ConditionalFromQuestion>
+
 ### Targeting another emotion component
 
 Similar to [styled-components](https://www.styled-components.com/docs/faqs#can-i-refer-to-other-components), emotion allows for emotion components to be targeted like regular CSS selectors when using [babel-plugin-emotion](/packages/babel-plugin-emotion.md).
+
+<ConditionalFromQuestion question="syntax" answer="string">
 
 ```jsx
 // @live
@@ -111,7 +197,9 @@ render(
 )
 ```
 
-Component selectors can also be used with object styles.
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="object">
 
 ```jsx
 // @live
@@ -137,27 +225,13 @@ render(
 )
 ```
 
-### Object styles
-
-```jsx
-// @live
-import styled from '@emotion/styled'
-
-const H1 = styled.h1(
-  {
-    fontSize: 20
-  },
-  props => ({ color: props.color })
-)
-
-render(<H1 color="lightgreen">This is lightgreen.</H1>)
-```
-
-This API was inspired by [glamorous](https://github.com/paypal/glamorous). ❤️
+</ConditionalFromQuestion>
 
 ### Customizing prop forwarding
 
 By default, Emotion passes all props to custom components and only props that are valid html attributes for string tags. You can customise this by passing a custom `shouldForwardProp` function. You can also use `@emotion/is-prop-valid` (which is used by emotion internally) to filter out props that are not valid as html attributes.
+
+<ConditionalFromQuestion question="syntax" answer="string">
 
 ```jsx
 // @live
@@ -165,18 +239,39 @@ import isPropValid from '@emotion/is-prop-valid'
 import styled from '@emotion/styled'
 
 const H1 = styled('h1', {
-  shouldForwardProp: prop =>
-    isPropValid(prop) && prop !== 'color'
+  shouldForwardProp: prop => isPropValid(prop) && prop !== 'color'
+})`
+  color: ${props => props.color};
+`
+
+render(<H1 color="lightgreen">This is lightgreen.</H1>)
+```
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="object">
+
+```jsx
+// @live
+import isPropValid from '@emotion/is-prop-valid'
+import styled from '@emotion/styled'
+
+const H1 = styled('h1', {
+  shouldForwardProp: prop => isPropValid(prop) && prop !== 'color'
 })(props => ({
-  color: 'hotpink'
+  color: props.color
 }))
 
 render(<H1 color="lightgreen">This is lightgreen.</H1>)
 ```
 
+</ConditionalFromQuestion>
+
 ### Composing dynamic styles
 
 You can create dynamic styles that are based on props and use them in styles.
+
+<ConditionalFromQuestion question="syntax" answer="string">
 
 ```jsx
 // @live
@@ -191,16 +286,33 @@ const dynamicStyle = props =>
 const Container = styled.div`
   ${dynamicStyle};
 `
-render(
-  <Container color="lightgreen">
-    This is lightgreen.
-  </Container>
-)
+render(<Container color="lightgreen">This is lightgreen.</Container>)
 ```
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="object">
+
+```jsx
+// @live
+import styled from '@emotion/styled'
+
+const dynamicStyle = props => ({
+  color: props.color
+})
+
+const Container = styled.div(dynamicStyle)
+
+render(<Container color="lightgreen">This is lightgreen.</Container>)
+```
+
+</ConditionalFromQuestion>
 
 ### `as` prop
 
 To use styles from a styled component but change the element that's rendered, you can use the `as` prop.
+
+<ConditionalFromQuestion question="syntax" answer="string">
 
 ```jsx
 // @live
@@ -211,14 +323,32 @@ const Button = styled.button`
 `
 
 render(
-  <Button
-    as="a"
-    href="https://github.com/emotion-js/emotion"
-  >
+  <Button as="a" href="https://github.com/emotion-js/emotion">
     Emotion on GitHub
   </Button>
 )
 ```
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="object">
+
+```jsx
+// @live
+import styled from '@emotion/styled'
+
+const Button = styled.button({
+  color: 'hotpink'
+})
+
+render(
+  <Button as="a" href="https://github.com/emotion-js/emotion">
+    Emotion on GitHub
+  </Button>
+)
+```
+
+</ConditionalFromQuestion>
 
 This API was inspired by [styled-components](https://www.styled-components.com). ❤️
 
@@ -227,6 +357,8 @@ The `as` prop is only used by styled when it's not forwarded to the underlying e
 ### Nesting components
 
 We can nest selectors using `&`:
+
+<ConditionalFromQuestion question="syntax" answer="string">
 
 ```jsx
 // @live
@@ -246,3 +378,28 @@ render(
   </Example>
 )
 ```
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="object">
+
+```jsx
+// @live
+
+import styled from '@emotion/styled'
+
+const Example = styled('span')({
+  color: 'lightgreen',
+  '& > a': {
+    color: 'hotpink'
+  }
+})
+
+render(
+  <Example>
+    This is <a>nested</a>.
+  </Example>
+)
+```
+
+</ConditionalFromQuestion>

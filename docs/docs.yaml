@@ -12,6 +12,7 @@
 
 - title: Advanced
   items:
+    - style-precedence
     - keyframes
     - ssr
     - with-props

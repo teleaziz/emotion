@@ -2,7 +2,13 @@
 title: 'Composition'
 ---
 
+import { ConditionalFromQuestion, StyleSyntaxQuestion } from './choices'
+
 Composition is one of the most powerful and useful patterns in Emotion. You can compose styles together by interpolating value returned from `css` in another style block.
+
+<StyleSyntaxQuestion />
+
+<ConditionalFromQuestion question="syntax" answer="string">
 
 ```jsx
 // @live
@@ -24,6 +30,24 @@ render(
   </div>
 )
 ```
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="object">
+
+```jsx
+// @live
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
+
+const base = {
+  color: 'hotpink'
+}
+
+render(<div css={[base, { backgroundColor: '#eee' }]}>This is hotpink.</div>)
+```
+
+</ConditionalFromQuestion>
 
 With regular css, you can compose styles together using multiple class names, but this is very limited because the order that they're defined is the order they'll be applied. This can lead to hacks with `!important` and such to apply the correct styles.
 
@@ -52,6 +76,8 @@ render(
 
 With Emotion though, you can create styles and combine them.
 
+<ConditionalFromQuestion question="syntax" answer="string">
+
 ```jsx
 // @live
 /** @jsx jsx */
@@ -70,12 +96,44 @@ render(
   <div>
     <div css={base}>This will be turquoise</div>
     <div css={[danger, base]}>
-      This will be also be turquoise since the base styles
-      overwrite the danger styles.
+      This will be also be turquoise since the base styles overwrite the danger
+      styles.
     </div>
     <div css={[base, danger]}>This will be red</div>
   </div>
 )
 ```
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="object">
+
+```jsx
+// @live
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
+
+const danger = {
+  color: 'red'
+}
+
+const base = {
+  backgroundColor: 'darkgreen',
+  color: 'turquoise'
+}
+
+render(
+  <div>
+    <div css={base}>This will be turquoise</div>
+    <div css={[danger, base]}>
+      This will be also be turquoise since the base styles overwrite the danger
+      styles.
+    </div>
+    <div css={[base, danger]}>This will be red</div>
+  </div>
+)
+```
+
+</ConditionalFromQuestion>
 
 Using Emotion's composition, you don't have to think about the order that styles were created because the styles are merged in the order that you use them.
