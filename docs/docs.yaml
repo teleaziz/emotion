@@ -12,7 +12,6 @@
 
 - title: Advanced
   items:
-    - style-precedence
     - keyframes
     - ssr
     - with-props
@@ -21,6 +20,7 @@
     - class-names
     - cache-provider
     - migrating-to-emotion-10
+    - style-precedence
     #- benchmarks
 
 - title: Tooling

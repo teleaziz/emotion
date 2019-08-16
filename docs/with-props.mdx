@@ -2,7 +2,13 @@
 title: 'Attaching Props'
 ---
 
+import { ConditionalFromQuestion, StyleSyntaxQuestion } from './choices'
+
 Some css-in-js libraries offer APIs to attach props to components, instead of having our own API to do that, we recommend creating a regular react component, using the css prop and attaching props like you would with any other React component.
+
+<StyleSyntaxQuestion />
+
+<ConditionalFromQuestion question="syntax" answer="string">
 
 ```jsx
 // @live
@@ -21,3 +27,27 @@ const RedPasswordInput = props => (
 
 render(<RedPasswordInput />)
 ```
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="object">
+
+```jsx
+// @live
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
+
+const RedPasswordInput = props => (
+  <input
+    type="password"
+    css={{
+      backgroundColor: 'red'
+    }}
+    {...props}
+  />
+)
+
+render(<RedPasswordInput />)
+```
+
+</ConditionalFromQuestion>

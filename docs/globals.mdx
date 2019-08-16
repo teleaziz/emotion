@@ -2,7 +2,13 @@
 title: 'Global Styles'
 ---
 
+import { StyleSyntaxQuestion, ConditionalFromQuestion } from './choices'
+
 Sometimes you might want to insert global css like resets or font faces. You can use the `Global` component to do this. It accepts a `styles` prop which accepts the same values as the `css` prop except it inserts styles globally. Global styles are also removed when the styles change or when the Global component unmounts.
+
+<StyleSyntaxQuestion />
+
+<ConditionalFromQuestion question="syntax" answer="string">
 
 ```jsx
 // @live
@@ -15,19 +21,41 @@ render(
         * {
           color: hotpink !important;
         }
+        .some-class {
+          font-size: 50px;
+          text-align: center;
+        }
       `}
     />
+    <div className="some-class">Everything is hotpink now!</div>
+  </div>
+)
+```
+
+</ConditionalFromQuestion>
+
+<ConditionalFromQuestion question="syntax" answer="object">
+
+```jsx
+// @live
+import { Global, css } from '@emotion/core'
+
+render(
+  <div>
     <Global
       styles={{
+        '*': {
+          color: 'hotpink !important'
+        },
         '.some-class': {
           fontSize: 50,
           textAlign: 'center'
         }
       }}
     />
-    <div className="some-class">
-      Everything is hotpink now!
-    </div>
+    <div className="some-class">Everything is hotpink now!</div>
   </div>
 )
 ```
+
+</ConditionalFromQuestion>
